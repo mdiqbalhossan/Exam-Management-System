@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\ExamBatchController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentController;
 
 /*
@@ -37,4 +38,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/student', StudentController::class);
     Route::get('/fetch-student', [StudentController::class, 'fetchStudent'])->name('admin.student.fetch');
     Route::resource('/exam', ExamController::class);
+
+    // Question Route
+    Route::get('/question/exam/{id}',[QuestionController::class, 'index'])->name('question.index');
+    Route::get('/question/create',[QuestionController::class, 'create'])->name('question.create');
+    Route::post('/question/store',[QuestionController::class, 'store'])->name('question.store');
 });

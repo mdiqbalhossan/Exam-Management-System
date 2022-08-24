@@ -63,7 +63,8 @@
                                     <td>{{ $ex->batch->name }}</td>
                                     <td>{{ $ex->duration }}</td>
                                     <td>{{ $ex->total_marks }}</td>
-                                    <td>{{ $ex->total_question }} &nbsp; &nbsp; <a href="#"
+                                    <td>{{ $ex->total_question }} &nbsp; &nbsp; <a
+                                            href="{{ route('question.index',$ex->id) }}"
                                             class="btn btn-success btn-sm"><i class="fa fa-plus-circle"
                                                 aria-hidden="true"></i></a>
                                     </td>
