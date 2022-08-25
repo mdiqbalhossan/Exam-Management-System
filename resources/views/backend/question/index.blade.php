@@ -58,12 +58,16 @@
                                 @foreach($questions as $question)
                                 <tr>
                                     <td>{!! $question->question !!}</td>
-                                    <td>{{ $question->options }}</td>
+                                    <td>@php
+                                        $options = json_decode($question->options)
+                                        @endphp
+                                        @foreach ($options as $key => $option)
+                                        {!! $option !!}
+                                        @endforeach</td>
                                     <td>{{ $question->correct_ans }}</td>
-                                    <td>{{ $question->answer }}</td>
+                                    <td>{!! $question->answer !!}</td>
                                     <td>
-                                        <a href="{{ route('exam.edit',$question->id) }}"
-                                            class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-sm dltBtn"
                                             id="{{ $question->id }}"><i class="fa fa-trash"></i></a>
                                     </td>
@@ -112,43 +116,48 @@
         datatable("#example1"); 
 
         // Delete Data
-        $(document).on('click', '.dltBtn', function(e) {
-        e.preventDefault();
-        let id = $(this).attr('id');
-        let csrf = '{{ csrf_token() }}';
-        let url = 'exam/' + id;
-        Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-        if (result.isConfirmed) {
-        $.ajax({
-        url: url,
-        method: 'delete',
-        data: {
-        id: id,
-        _token: csrf
-        },
-        success: function(response) {
-        console.log(response);
-        Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-        )
-        setTimeout(() => {
-        window.location = '{{ route('exam.index') }}';
-        }, 2000);
-        }
-        });
-        }
-        })
-        });
+        // $(document).on('click', '.dltBtn', function(e) {
+        // e.preventDefault();
+        // let id = $(this).attr('id');
+        // let csrf = '{{ csrf_token() }}';
+        // let url = 'question/delete/' + id;
+        // let exam_id = {{ Session::get('exam_id') }}
+        // Swal.fire({
+        // title: 'Are you sure?',
+        // text: "You won't be able to revert this!",
+        // icon: 'warning',
+        // showCancelButton: true,
+        // confirmButtonColor: '#3085d6',
+        // cancelButtonColor: '#d33',
+        // confirmButtonText: 'Yes, delete it!'
+        // }).then((result) => {
+        // if (result.isConfirmed) {
+        // $.ajax({
+        // url: url,
+        // method: 'get',
+        // data: {
+        // id: id,
+        // _token: csrf
+        // },
+        // success: function(response) {
+        // console.log(response);
+        // Swal.fire(
+        // 'Deleted!',
+        // 'Your file has been deleted.',
+        // 'success'
+        // )
+        // // setTimeout(() => {
+        // // window.location = 'question/exam/'+exam_id;
+        // // }, 2000);
+        // },
+        // error: function (data) {
+        // console.log('Error:', data);        
+        // }
+        
+        // });
+        // }
+        // })
+        // });
         
 
     });

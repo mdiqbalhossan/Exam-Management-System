@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ExamBatchController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +22,7 @@ use App\Http\Controllers\Admin\StudentController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 Auth::routes([
@@ -29,7 +31,19 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// User Authentication
+Route::get('/user/login',[AuthController::class, 'login'])->name('user.login');
+Route::post('/user/login',[AuthController::class, 'login_check'])->name('user.login.post');
+Route::get('/user/register',[AuthController::class, 'register'])->name('user.register');
+Route::post('/user/register',[AuthController::class, 'register_check'])->name('user.register.post');
+Route::get('/forgot/id',[AuthController::class, 'forgot'])->name('user.forgot');
+Route::post('/forgot/id',[AuthController::class, 'forgot_check'])->name('user.forgot.post');
+
+// User Route Group
+Route::group(['prefix' => 'user', 'middleware' => 'auth:student'], function(){
+    Route::get('/dashboard',[UserDashboardController::class, 'index'])->name('dashboard');
+});
+
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

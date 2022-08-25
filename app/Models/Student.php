@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use sirajcse\UniqueIdGenerator\UniqueIdGenerator;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    use HasFactory;
+    
+
+    protected $guarded = ['student'];
 
     protected $fillable = [
         'name', 'email', 'clg_name', 'phone', 'photo', 'user_id', 'payment_number', 'batch_id', 'status'
