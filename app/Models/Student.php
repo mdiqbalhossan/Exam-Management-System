@@ -21,6 +21,7 @@ class Student extends Authenticatable
         return $this->belongsTo(ExamBatch::class, 'batch_id');
     }
 
+
     public static function boot() { 
         parent::boot(); 
         self::creating(function ($model) { 

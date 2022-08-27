@@ -12,12 +12,13 @@
     <!-- font awesome -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
+    @stack('css')
 </head>
 
 <body>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="#" class="navbar-brand logo">
+            <a href="{{ route('home') }}" class="navbar-brand logo">
                 <img src="assets/img/logo.png" alt="" width="48px" />
                 <span class="">Amuse Exam</span>
             </a>
@@ -27,7 +28,7 @@
             <!-- Collection of nav links, forms, and other content for toggling -->
             <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
                 <div class="navbar-nav">
-                    <a href="#" class="nav-item nav-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                     <a href="#" class="nav-item nav-link">About</a>
 
                     <a href="#" class="nav-item nav-link">Contact</a>
@@ -43,25 +44,34 @@
                     </div>
                 </form>
                 <div class="navbar-nav ml-auto">
+                    @guest
                     <div class="nav-item dropdown login-dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link login-btn dropdown-toggle"><i
-                                class="fa fa-user-o"></i> Login</a>
+                                class="fa fa-user-o"></i>
+                            Login</a>
                         <div class="dropdown-menu">
-                            <form class="form-inline login-form" action="/examples/actions/confirmation.php"
-                                method="post">
+                            <form class="form-inline login-form" action="{{ route('user.login.post') }}" method="post">
+                                @csrf
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">
                                             <span class="fa fa-user"></span>
                                         </span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="User Id" required />
+                                    <input type="text" class="form-control" name="user_id" placeholder="User Id"
+                                        required />
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </form>
                         </div>
                     </div>
+                    @else
+                    <a href="{{ route('dashboard') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
+                        Dashboard</a>
+                    <a href="{{ route('user.logout') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
+                        Logout</a>
+                    @endguest
                 </div>
             </div>
         </nav>
@@ -79,7 +89,7 @@
     <script src="{{ asset('frontend') }}/js/jquery.min.js"></script>
     <script src="{{ asset('frontend') }}/js/popper.min.js"></script>
     <script src="{{ asset('frontend') }}/js/bootstrap.min.js"></script>
-    <script src="{{ asset('frontend') }}/js/custom.js"></script>
+    {{-- <script src="{{ asset('frontend') }}/js/custom.js"></script> --}}
     <script>
         document.querySelector(".button").onmousemove = function (e) {
                 var x = e.pageX - e.target.offsetLeft;
@@ -89,6 +99,7 @@
                 e.target.style.setProperty("--y", y + "px");
               };
     </script>
+    @stack('js')
 </body>
 
 </html>

@@ -123,4 +123,22 @@ class ExamController extends Controller
 
        return response()->json(['success' => 'Member has been deleted successfully']);
     }
+
+    public function activate($id)
+    {
+        $exam = Exam::find($id);
+        $exam->update([
+            'status' => 1
+        ]);
+        return response()->json(['status' => 200]);
+    }
+
+    public function deactivate($id)
+    {
+        $exam = Exam::find($id);
+        $exam->update([
+            'status' => 0
+        ]);
+        return response()->json(['status' => 200]);
+    }
 }

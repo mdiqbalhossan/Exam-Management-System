@@ -200,6 +200,44 @@
         let csrf = "{{ csrf_token() }}";
         deleteData(url, fetchData);
         });
+
+        $("body").on("click", ".accepted", function(e) {
+        e.preventDefault();
+        id = $(this).attr("id");
+        $.ajax({
+            type: "GET",
+            url: 'accepted/'+id,
+            success: function (response) {
+                if(response.status == 200){
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Payment Status Updated Succesfully'
+                });
+                fetchData();
+                }
+            }
+        });
+        });
+
+        $("body").on("click", ".cancelled", function(e) {
+        e.preventDefault();
+        id = $(this).attr("id");
+        $.ajax({
+        type: "GET",
+        url: 'cancelled/'+id,
+        success: function (response) {
+        if(response.status == 200){
+        Toast.fire({
+        icon: 'success',
+        title: 'Payment Status Updated Succesfully'
+        });
+        fetchData();
+        }
+        }
+        });
+        });
+
+
         
 
     });

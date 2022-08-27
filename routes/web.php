@@ -23,7 +23,7 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
 
 Route::get('/', function () {
     return view('frontend.index');
-});
+})->name('home');
 
 Auth::routes([
     'register' => false,
@@ -38,6 +38,7 @@ Route::get('/user/register',[AuthController::class, 'register'])->name('user.reg
 Route::post('/user/register',[AuthController::class, 'register_check'])->name('user.register.post');
 Route::get('/forgot/id',[AuthController::class, 'forgot'])->name('user.forgot');
 Route::post('/forgot/id',[AuthController::class, 'forgot_check'])->name('user.forgot.post');
+Route::get('/user/logout',[AuthController::class, 'logout'])->name('user.logout');
 
 // User Route Group
 Route::group(['prefix' => 'user', 'middleware' => 'auth:student'], function(){
@@ -51,7 +52,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/fetch-exam-batch', [ExamBatchController::class, 'fetchExamBatch'])->name('admin.exam-batches.fetch');
     Route::resource('/student', StudentController::class);
     Route::get('/fetch-student', [StudentController::class, 'fetchStudent'])->name('admin.student.fetch');
+    Route::get('/accepted/{id}',[StudentController::class, 'accepted']);
+    Route::get('/cancelled/{id}',[StudentController::class, 'cancelled']);
     Route::resource('/exam', ExamController::class);
+    Route::get('/activate/{id}',[ExamController::class, 'activate']);
+    Route::get('/deactivate/{id}',[ExamController::class, 'deactivate']);
 
     // Question Route
     Route::get('/question/exam/{id}',[QuestionController::class, 'index'])->name('question.index');

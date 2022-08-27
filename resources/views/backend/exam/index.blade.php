@@ -70,8 +70,12 @@
                                     </td>
                                     <td>@if ($ex->status == 1)
                                         <span class="badge badge-success">Active</span>
+                                        <a href="#" class="text-danger ml-2 deactivate" id="{{ $ex->id }}"
+                                            title="Deactivated"><i class="fa fa-times-circle"></i></a>
                                         @else
                                         <span class="badge badge-danger">Deactive</span>
+                                        <a href="#" class="text-success ml-2 activate" id="{{ $ex->id }}"
+                                            title="Activate"><i class="fa fa-check-circle"></i></a>
                                         @endif
                                     </td>
                                     <td>{{ $ex->start_date }}</td>
@@ -165,6 +169,47 @@
         });
         }
         })
+        });
+
+
+        $("body").on("click", ".activate", function(e) {
+        e.preventDefault();
+        id = $(this).attr("id");
+        $.ajax({
+        type: "GET",
+        url: 'activate/'+id,
+        success: function (response) {
+        if(response.status == 200){
+        Toast.fire({
+        icon: 'success',
+        title: 'Exam Status Updated Succesfully'
+        });
+        setTimeout(() => {
+        window.location = '{{ route('exam.index') }}'
+        }, 2000);
+        }
+        }
+        });
+        });
+        
+        $("body").on("click", ".deactivate", function(e) {
+        e.preventDefault();
+        id = $(this).attr("id");
+        $.ajax({
+        type: "GET",
+        url: 'deactivate/'+id,
+        success: function (response) {
+        if(response.status == 200){
+        Toast.fire({
+        icon: 'success',
+        title: 'Exam Status Updated Succesfully'
+        });
+        setTimeout(() => {
+            window.location = '{{ route('exam.index') }}'
+        }, 2000);
+        }
+        }
+        });
         });
         
 

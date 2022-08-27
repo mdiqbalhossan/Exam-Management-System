@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('exam-batches.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-atlas"></i>
                         <p>
                             Exam Batch
                         </p>
@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('student.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-user-alt"></i>
                         <p>
                             Student
                         </p>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('exam.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>
                             Exam
                         </p>

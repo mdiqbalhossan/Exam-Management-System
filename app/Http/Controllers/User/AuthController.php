@@ -39,16 +39,14 @@ class AuthController extends Controller
         ]);
 
         $user = Student::where('user_id', $request->user_id)->first();
-        if (!$user) {
-            return redirect()
-            ->back()
-            ->with('error', 'Invalid Credentials');
+        if($user){
+            Auth::guard('student')->login($user);
+            return redirect()->route('dashboard');
         }
 
-        Auth::guard('student')->login($user);
-        return redirect()->route('dashboard');
-
-        
+        return redirect()
+        ->back()
+        ->with('error', 'Invalid Credentials');     
 
     }
 
@@ -65,9 +63,9 @@ class AuthController extends Controller
 
         $data = $request->all();
         $check = $this->create($data);
-        Auth::guard('student');
         if($check){
-            return redirect()->route('dashboard');
+            $user_id = $check->user_id;
+            return response()->json(['user_id' => $user_id]);
         }
 
     }
@@ -82,5 +80,30 @@ class AuthController extends Controller
             'batch_id' => $data['batch_id'],
             'group' => $data['group'],
         ]);
+    }
+
+    public function forgot()
+    {
+        return view('frontend.forgot');
+    }
+
+    public function forgot_check(Request $request)
+    {
+        $request->validate([
+            'phone'=> 'required|numeric|exists:students,phone',
+        ]);
+
+        $phone = $request->phone;
+        $student = Student::where('phone',$phone)->first();
+        if($student){
+            return response()->json(['name' => $student->name, 'user_id' => $student->user_id]);
+        }
+    }
+
+    public function logout() {
+        Session::flush();
+        Auth::logout();
+  
+        return Redirect()->route('user.login');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'Details')
+@section('title', 'Dashboard')
 
 @section('content')
 <div class="container my-5">
@@ -13,133 +13,94 @@
                             <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
                                 class="rounded-circle p-1 bg-primary" width="110" />
                             <div class="mt-3">
-                                <h4>John Doe</h4>
-                                <p class="text-secondary mb-1">Full Stack Developer</p>
-                                <p class="text-muted font-size-sm">
-                                    Bay Area, San Francisco, CA
+                                <h4>{{ Auth::user()->name }}</h4>
+                                <p class="text-success mb-1">User Id: {{ Auth::user()->user_id }}</p>
+                                <p class="text-success mb-1">
+                                    College Name: {{ Auth::user()->clg_name }}
                                 </p>
-                                <button class="btn btn-primary">Follow</button>
-                                <button class="btn btn-outline-primary">Message</button>
+                                <p class="text-success mb-1">
+                                    Phone Name: {{ Auth::user()->phone }}
+                                </p>
+                                @if (Auth::user()->status === 'accepted')
+                                <p class="text-success mb-1">
+                                    Status: {{ 'Accepted' }}
+                                </p>
+                                @elseif(Auth::user()->status == 'pending')
+                                <p class="text-warning mb-1">
+                                    Status: {{ 'Pending' }}
+                                </p>
+                                @else
+                                <p class="text-danger mb-1">
+                                    Status: {{ 'Cancelled' }}
+                                </p>
+                                @endif
+
+                                <p class="text-success mb-1">
+                                    Batch Name: {{ Auth::user()->batch->name}}
+                                </p>
+
                             </div>
                         </div>
                         <hr class="my-4" />
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-globe me-2 icon-inline">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                                        <path
-                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                        </path>
-                                    </svg>Website
-                                </h6>
-                                <span class="text-secondary">https://bootdey.com</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-github me-2 icon-inline">
-                                        <path
-                                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                                        </path>
-                                    </svg>Github
-                                </h6>
-                                <span class="text-secondary">bootdey</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="feather feather-twitter me-2 icon-inline text-info">
-                                        <path
-                                            d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                                        </path>
-                                    </svg>Twitter
-                                </h6>
-                                <span class="text-secondary">@bootdey</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="feather feather-instagram me-2 icon-inline text-danger">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                    </svg>Instagram
-                                </h6>
-                                <span class="text-secondary">bootdey</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="feather feather-facebook me-2 icon-inline text-primary">
-                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
-                                        </path>
-                                    </svg>Facebook
-                                </h6>
-                                <span class="text-secondary">bootdey</span>
-                            </li>
-                        </ul>
+                        <button class="btn btn-primary btn-block">Update Profile</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8">
 
                 <div class="row">
+                    @if(Auth::user()->status != 'accepted')
+                    <div class="alert alert-danger">
+                        <p>আপনার একাউন্ট এখনো Approve হয়নাই। পেমেন্ট স্টাটাস সঠিক হলে আমাদের এডমিন ২৪ ঘন্টার মধ্যেই
+                            আপনার একাউন্ট Approve করে দিবেন।</p>
+                        <p>পেমেন্ট স্টাটাস সঠিক হওয়ার পরেও ২৪ ঘন্টার মধ্যে Approve না হলে Contact সেকশান এ দেওয়া নাম্বার
+                            এ যোগাযোগ করার জন্য অনুরোধ করা হইলো।</p>
+                    </div>
+                    @else
+                    @if ($exams->count()>0)
+                    @foreach ($exams as $exam)
                     <div class="col-xl-6 col-md-12">
                         <div class="card-content">
                             <div class="card-desc">
-                                <h3>Exam Title</h3>
+                                <h3>{{ $exam->title }}</h3>
                                 <hr>
                                 <p>
                                 <div class="well" style="max-height: 300px;overflow: auto;">
                                     <ul class="list-group checked-list-box">
-                                        <li class="list-group-item">Exam Type: 30 days</li>
-                                        <li class="list-group-item">Exam Duration: 30 days</li>
-                                        <li class="list-group-item">Total Question: 30 days</li>
-                                        <li class="list-group-item">Total Mark: 30 days</li>
-                                        <li class="list-group-item">Negative Mark: 30 days</li>
-                                        <li class="list-group-item">Passed Mark: 30 days</li>
-                                        <li class="list-group-item">Start Exam: 30 days</li>
-                                        <li class="list-group-item">End Exam: 30 days</li>
+                                        <li class="list-group-item">Exam Type: {{ $exam->type }}</li>
+                                        <li class="list-group-item">Exam Duration: {{ $exam->duration }}</li>
+                                        <li class="list-group-item">Total Question: {{ $exam->total_question }}</li>
+                                        <li class="list-group-item">Total Mark: {{ $exam->total_marks }}</li>
+                                        <li class="list-group-item">Negative Mark: {{ $exam->negetive_marks }}</li>
+                                        <li class="list-group-item">Passed Mark: {{ $exam->pass_parcentage }}</li>
+                                        <li class="list-group-item">Start Exam: {{
+                                            \Carbon\Carbon::parse($exam->start_date)->format('d-M-Y h:m:i')}}</li>
+                                        <li class="list-group-item">End Exam: {{
+                                            \Carbon\Carbon::parse($exam->end_date)->format('d-M-Y h:m:i')}}</li>
                                     </ul>
                                 </div>
                                 </p>
+                                @if (!Helper::checkStartDate($exam->start_date))
+                                <h4 class="text-center text-secondary" id="countdown"></h4>
+                                <a href="" id="start_btn" class="btn-card" style="display: none">Start Exam</a>
+                                @elseif (Helper::checkEndDate($exam->end_date))
                                 <a href="details.html" class="btn-card">Start Exam</a>
+                                @else
+                                <a href="details.html" class="btn-card">View Result</a>
+                                @endif
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card-content">
-                            <div class="card-desc">
-                                <h3>Exam Title</h3>
-                                <hr>
-                                <p>
-                                <div class="well" style="max-height: 300px;overflow: auto;">
-                                    <ul class="list-group checked-list-box">
-                                        <li class="list-group-item">Exam Type: 30 days</li>
-                                        <li class="list-group-item">Exam Duration: 30 days</li>
-                                        <li class="list-group-item">Total Question: 30 days</li>
-                                        <li class="list-group-item">Total Mark: 30 days</li>
-                                        <li class="list-group-item">Negative Mark: 30 days</li>
-                                        <li class="list-group-item">Passed Mark: 30 days</li>
-                                        <li class="list-group-item">Start Exam: 30 days</li>
-                                        <li class="list-group-item">End Exam: 30 days</li>
-                                </div>
-                                </p>
-                                <a href="details.html" class="btn-card">Start Exam</a>
-                            </div>
-                        </div>
+                    @endforeach
+                    @else
+                    <div class="alert alert-danger">
+                        <p>এখনো পরিক্ষা শুরু হইয়নাই, অথবা আপনি যে ব্যাচ এ রেজিষ্টেশন করেছেন এই ব্যাচ এ এই মুহূর্তে কোন
+                            পরিক্ষা Available না।</p>
+                        <p>অপেক্ষা করুন আমাদের এডমিন বিস্তারিত জানিয়ে দিবেন।</p>
                     </div>
+                    @endif
+                    @endif
                 </div>
 
             </div>
@@ -147,3 +108,22 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    var countdown = new Date("{{ Helper::getStartDate() }}").getTime();
+    var x = setInterval(() => {
+        var now = new Date().getTime();
+        var distance = countdown - now;
+        var days = Math.floor(distance/(1000*60*60*24));
+        var hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+        var minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+        var seconds = Math.floor((distance%(1000*60))/1000);
+        document.getElementById("countdown").innerHTML = days + "Day : " + hours + "h " +
+        minutes + "m " + seconds + "s ";
+        // If the count down is over, write some text
+        if (distance < 0) { clearInterval(x); document.getElementById("countdown").style.display = "none" ;document.getElementById("start_btn").style.display = "block" }
+    }, 1000);
+
+</script>
+@endpush

@@ -12,6 +12,11 @@
                     <h4 class="card-title text-center mb-4 mt-1">Sign in</h4>
                     <hr>
                     @include('partials.error')
+                    @if ($msg = Session::get('error'))
+                    <div class="alert alert-danger">
+                        {{ $msg }}
+                    </div>
+                    @endif
                     <hr />
                     <p class="text-success text-center">
                         রেজিষ্ট্রেশন করার পরে প্রাপ্ত ইউজার আইডি দিয়ে লগইন করুন। ইউজার
@@ -40,7 +45,7 @@
                         </div>
                         <!-- form-group// -->
                         <p class="text-center">
-                            <a href="forgot.html" class="">Forgot User Id?</a>
+                            <a href="{{ route('user.forgot') }}" class="">Forgot User Id?</a>
                         </p>
                     </form>
                 </article>
