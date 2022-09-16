@@ -107,6 +107,8 @@
     <script src="{{ asset('backend') }}/dist/js/adminlte.min.js"></script>
     {{-- Custom Js --}}
     <script src="{{ asset('backend/custom.js') }}"></script>
+    {{-- Ck Editor --}}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
     @stack('scripts')
 </body>
 

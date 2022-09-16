@@ -20,7 +20,7 @@
                     <hr />
                     <p>
                         <span>If you already Register. Please Click
-                            <a href="login.php">here</a>
+                            <a href="{{ route('user.login') }}">here</a>
                         </span>
                     </p>
                     <hr>

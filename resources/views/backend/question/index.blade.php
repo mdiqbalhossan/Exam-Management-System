@@ -47,6 +47,7 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Question</th>
                                     <th>Option</th>
                                     <th>Correct Option</th>
@@ -55,8 +56,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $i = 1 @endphp
                                 @foreach($questions as $question)
                                 <tr>
+                                    <td>{{ $i++ }}</td>
                                     <td>{!! $question->question !!}</td>
                                     <td>@php
                                         $options = json_decode($question->options)
@@ -76,6 +79,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>#</th>
                                     <th>Question</th>
                                     <th>Option</th>
                                     <th>Correct Option</th>

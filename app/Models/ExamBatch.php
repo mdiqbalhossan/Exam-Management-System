@@ -16,5 +16,7 @@ class ExamBatch extends Model
         'group',
         'exam_fees',
         'syllabus',
+        'exam_validate',
+        'exam_start_date'
     ];
 }

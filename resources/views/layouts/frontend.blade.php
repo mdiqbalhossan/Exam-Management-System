@@ -44,7 +44,12 @@
                     </div>
                 </form>
                 <div class="navbar-nav ml-auto">
-                    @guest
+                    @auth
+                    <a href="{{ route('dashboard') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
+                        Dashboard</a>
+                    <a href="{{ route('user.logout') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
+                        Logout</a>
+                    @else
                     <div class="nav-item dropdown login-dropdown">
                         <a href="#" data-toggle="dropdown" class="nav-item nav-link login-btn dropdown-toggle"><i
                                 class="fa fa-user-o"></i>
@@ -66,12 +71,7 @@
                             </form>
                         </div>
                     </div>
-                    @else
-                    <a href="{{ route('dashboard') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
-                        Dashboard</a>
-                    <a href="{{ route('user.logout') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
-                        Logout</a>
-                    @endguest
+                    @endauth
                 </div>
             </div>
         </nav>
@@ -90,6 +90,8 @@
     <script src="{{ asset('frontend') }}/js/popper.min.js"></script>
     <script src="{{ asset('frontend') }}/js/bootstrap.min.js"></script>
     {{-- <script src="{{ asset('frontend') }}/js/custom.js"></script> --}}
+    {{-- Ck Editor --}}
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
     <script>
         document.querySelector(".button").onmousemove = function (e) {
                 var x = e.pageX - e.target.offsetLeft;

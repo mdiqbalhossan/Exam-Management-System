@@ -8,7 +8,10 @@ use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\DetailsController;
+use App\Http\Controllers\User\ExamController as UserExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +24,9 @@ use App\Http\Controllers\User\DashboardController as UserDashboardController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/details/{id}', [DetailsController::class, 'index'])->name('details');
+
 
 Auth::routes([
     'register' => false,
@@ -43,6 +46,9 @@ Route::get('/user/logout',[AuthController::class, 'logout'])->name('user.logout'
 // User Route Group
 Route::group(['prefix' => 'user', 'middleware' => 'auth:student'], function(){
     Route::get('/dashboard',[UserDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/exam/{id}', [UserExamController::class, 'index'])->name('exam');
+    Route::post('/exam/store/{id}', [UserExamController::class, 'store'])->name('exam.result.store');
+    Route::get('/success',[UserExamController::class, 'success'])->name('success');
 });
 
 

@@ -28,6 +28,8 @@ class ExamBatchController extends Controller
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Exam Start</th>
+                                    <th>Exam Validate</th>
                                     <th>Status</th>
                                     <th>Group</th>
                                     <th>Exam Fees</th>
@@ -39,8 +41,10 @@ class ExamBatchController extends Controller
             foreach($examBatches as $examBatch){
                 $output .= '<tr>
                                     <td>'.$examBatch->name.'</td>
-                                    <td>'.$examBatch->status.'</td>
-                                    <td>'.$examBatch->group.'</td>
+                                    <td>'.$examBatch->exam_start_date.'</td>
+                                    <td>'.$examBatch->exam_validate.'&nbsp;Days</td>
+                                    <td>'.ucfirst($examBatch->status).'</td>
+                                    <td>'.ucfirst($examBatch->group).'</td>
                                     <td>'.$examBatch->exam_fees.'</td>
                                     <td>
                                         <a href="javascript:void(0)" id="'.$examBatch->id.'" class="btn btn-success btn-sm edit"><i class="fa fa-edit"></i></a>
@@ -52,7 +56,9 @@ class ExamBatchController extends Controller
             $output .= '</tbody>
                             <tfoot>
                                 <tr>
-                                      <th>Name</th>
+                                    <th>Name</th>
+                                    <th>Exam Start</th>
+                                    <th>Exam Validate</th>
                                     <th>Status</th>
                                     <th>Group</th>
                                     <th>Exam Fees</th>

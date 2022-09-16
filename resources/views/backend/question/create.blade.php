@@ -133,6 +133,8 @@
 <script>
     $(function () {
         var config = {
+        mathJaxLib:
+            "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML",
         height:'100',
         toolbarGroups:[
         { name: "insert" },
@@ -141,6 +143,8 @@
         };
 
         var config1 = {
+            mathJaxLib:
+            "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML",
             height: '50',
         };
         CKEDITOR.replace( 'question',config1);

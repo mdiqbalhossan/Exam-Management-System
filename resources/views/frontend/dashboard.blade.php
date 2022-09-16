@@ -82,9 +82,10 @@
                                 </p>
                                 @if (!Helper::checkStartDate($exam->start_date))
                                 <h4 class="text-center text-secondary" id="countdown"></h4>
-                                <a href="" id="start_btn" class="btn-card" style="display: none">Start Exam</a>
+                                <a href="{{ route('exam',$exam->id) }}" id="start_btn" class="btn-card"
+                                    style="display: none">Start Exam</a>
                                 @elseif (Helper::checkEndDate($exam->end_date))
-                                <a href="details.html" class="btn-card">Start Exam</a>
+                                <a href="{{ route('exam',$exam->id) }}" class="btn-card">Start Exam</a>
                                 @else
                                 <a href="details.html" class="btn-card">View Result</a>
                                 @endif

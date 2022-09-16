@@ -7,7 +7,8 @@
 <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="{{ asset('backend') }}/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
+<!-- summernote -->
+<link rel="stylesheet" href="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.css">
 @endpush
 
 @section('content')
@@ -75,6 +76,22 @@
                             placeholder="Enter Description" required></textarea>
                     </div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Exam Start Date</label>
+                                <input type="date" class="form-control" name="exam_start_date" id="exam_start_date"
+                                    placeholder="Enter Exam Start Date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Exam Validate For <span class="text-danger">(In Days)</span></label>
+                                <input type="text" class="form-control" name="exam_validate" id="exam_validate"
+                                    placeholder="30" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Status</label>
@@ -130,10 +147,16 @@
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('backend') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Summernote -->
+<script src="{{ asset('backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
 
 <script>
     $(function () {     
-
+        $('#description').summernote({
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman',
+        'Verdana', "Noto Serif Bengali"],
+        fontNamesIgnoreCheck: ["Noto Serif Bengali"]
+        });
         $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -158,6 +181,7 @@
             $('#custom_form').trigger("reset");
             $('.modal-title').html("Create New Batch");
             $('#custom_modal').modal('show');
+            $('#description').summernote('reset');;
         });
 
         $('#save_btn').click(function (e) {
@@ -196,7 +220,10 @@
         $('#custom_modal').modal('show');
         $('#id').val(data.id);
         $('#name').val(data.name);
-        $('#description').val(data.description);
+        $('#description').summernote('editor.pasteHTML', data.description);
+        // $ ('#description').code();
+        $('#exam_start_date').val(data.exam_start_date);
+        $('#exam_validate').val(data.exam_validate);
         $('#status').val(data.status).trigger('change');
         $('#group').val(data.group).trigger('change');
         $('#exam_fees').val(data.exam_fees);
