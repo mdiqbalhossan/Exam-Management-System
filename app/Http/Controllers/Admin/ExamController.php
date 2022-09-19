@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\ExamBatch;
+use App\Models\Result;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -140,5 +141,10 @@ class ExamController extends Controller
             'status' => 0
         ]);
         return response()->json(['status' => 200]);
+    }
+
+    public function viewResult($id){
+        $results = Result::where('exam_id',$id)->get();
+        return view('backend.exam.result',compact('results'));
     }
 }

@@ -45,6 +45,41 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-sticky-note"></i>
+                        <p>
+                            Note Section
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('classes.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Class</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('group.index') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Group</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/charts/inline.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Subject</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/charts/uplot.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Note Upload</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('exam-batches.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-atlas"></i>
                         <p>

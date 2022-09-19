@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'Exam')
+@section('title', 'View Result')
 @push('css')
 <style>
     label {
@@ -63,7 +63,13 @@
     <div class="card border border-info" id="exam">
         <div class="card-header border-bottom border-info fixed">
             <h3>
-                {{ $exam->title }}<strong id="timer" class="float-right"></strong>
+                {{ $exam->title }}
+                <div class="float-right">
+                    <span class="badge badge-info p-2">Total Ans: 20</span>
+                    <span class="badge badge-danger p-2">Neg Marks: 5</span>
+                    <span class="badge badge-success p-2">Final Marks: 15</span>
+                    <span class="badge badge-info p-2">Status: Passed</span>
+                </div>
             </h3>
         </div>
         <form action="{{ route('exam.result.store', $exam->id) }}" id="question_form" method="post">
@@ -108,48 +114,5 @@
 @endsection
 
 @push('js')
-<script>
-    var duration = '{{ $exam->duration }}';
-        var c = 60 * duration;
-        var t;
-        timedCount();
-    
-        function timedCount() {
-            var hours = parseInt(c / 3600) % 24;
-            var minutes = parseInt(c / 60) % 60;
-            var seconds = c % 60;
-    
-            var result =
-            (hours < 10 ? "0" + hours : hours) +
-            ":" +
-            (minutes < 10 ? "0" + minutes : minutes) +
-            ":" +
-            (seconds < 10 ? "0" + seconds : seconds);
-    
-            $("#timer").html(result);
-            if (c == 0) {
-                $.ajax({
-                    type: "POST",
-                    url: "/exam/store/".$exam->id,
-                    data: $("#question_form").serialize(),
-                    success: function(response) {
-                        Swal.fire({
-                            position: "top-end",
-                            icon: "success",
-                            title: "ধন্যবাদ। নিদির্‌ষ্ট সময় পরে ওয়েবসাইট এ রেজাল্ট প্রকাশ করা হবে।",
-                            showConfirmButton: false,
-                            timer: 3000
-                        });                    
-                        setTimeout(() => {
-                            window.location = "{{ route('success') }}";
-                        }, 3000);
-                    }
-                });            
-            }
-            c = c - 1;
-            t = setTimeout(function() {
-            timedCount();
-            }, 1000);
-      }
-</script>
+
 @endpush

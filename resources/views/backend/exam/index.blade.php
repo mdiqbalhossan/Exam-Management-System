@@ -80,6 +80,8 @@
                                     </td>
                                     <td>{{ $ex->start_date }}</td>
                                     <td>
+                                        <a href="{{ route('view.result',$ex->id) }}" class="btn btn-info btn-sm"
+                                            title="View Result"><i class="fa fa-poll"></i></a>
                                         <a href="{{ route('exam.edit',$ex->id) }}" class="btn btn-success btn-sm"><i
                                                 class="fa fa-edit"></i></a>
                                         <a href="javascript:void(0)" class="btn btn-danger btn-sm dltBtn"

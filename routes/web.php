@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\ExamBatchController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\Note\StudentClassController;
+use App\Http\Controllers\Admin\Note\StudentGroupController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\User\AuthController;
@@ -49,6 +51,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:student'], function(){
     Route::get('/exam/{id}', [UserExamController::class, 'index'])->name('exam');
     Route::post('/exam/store/{id}', [UserExamController::class, 'store'])->name('exam.result.store');
     Route::get('/success',[UserExamController::class, 'success'])->name('success');
+    Route::get('/result/{exam_id}',[UserExamController::class,'viewResult'])->name('view.user.result');
 });
 
 
@@ -63,9 +66,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/exam', ExamController::class);
     Route::get('/activate/{id}',[ExamController::class, 'activate']);
     Route::get('/deactivate/{id}',[ExamController::class, 'deactivate']);
+    Route::get('/view/result/{id}',[ExamController::class, 'viewResult'])->name('view.result');
 
     // Question Route
     Route::get('/question/exam/{id}',[QuestionController::class, 'index'])->name('question.index');
     Route::get('/question/create',[QuestionController::class, 'create'])->name('question.create');
     Route::post('/question/store',[QuestionController::class, 'store'])->name('question.store');
+
+    // Student Note Route
+    Route::prefix('notes')->group(function(){
+        Route::resource('classes',StudentClassController::class);
+        Route::get('/fetch-class', [StudentClassController::class, 'fetchClass'])->name('admin.class.fetch');
+        Route::resource('group',StudentGroupController::class);
+        Route::get('/fetch-group', [StudentGroupController::class, 'fetchGroup'])->name('admin.group.fetch');
+    });
 });

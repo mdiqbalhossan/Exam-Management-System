@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Answer;
 use App\Models\Exam;
@@ -27,11 +28,18 @@ class ExamController extends Controller
         $data['answer'] = json_encode($request->all());
         
         Answer::insert($data);
+        Helper::result($data['exam_id'],$data['user_id']);
 
         return redirect()->route('success');
     }
 
     public function success(){
         return view('frontend.success');
+    }
+
+    public function viewResult($exam_id){
+        $question = Question::where('exam_id',$exam_id)->get();
+        $exam = Exam::find($exam_id);
+        return view('frontend.result',compact('question','exam'));
     }
 }

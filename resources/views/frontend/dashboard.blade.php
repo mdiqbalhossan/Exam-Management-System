@@ -80,14 +80,20 @@
                                     </ul>
                                 </div>
                                 </p>
-                                @if (!Helper::checkStartDate($exam->start_date))
+                                @php
+                                $answer =
+                                DB::table('answers')->where('user_id',Auth::user()->id)->where('exam_id',$exam->id)->first();
+                                Helper::checkStartDate($exam->start_date)
+                                @endphp
                                 <h4 class="text-center text-secondary" id="countdown"></h4>
+                                @if (!isset($answer) && Helper::checkStartDate($exam->start_date))
                                 <a href="{{ route('exam',$exam->id) }}" id="start_btn" class="btn-card"
                                     style="display: none">Start Exam</a>
-                                @elseif (Helper::checkEndDate($exam->end_date))
-                                <a href="{{ route('exam',$exam->id) }}" class="btn-card">Start Exam</a>
+                                @elseif (!Helper::checkEndDate($exam->end_date))
+                                <a href="{{ route('view.user.result',$exam->id) }}" class="btn-card">View Result</a>
                                 @else
-                                <a href="details.html" class="btn-card">View Result</a>
+                                <span class="text-info">You already gave exam. Please wait for result until end
+                                    exam.</span>
                                 @endif
 
                             </div>
@@ -112,6 +118,8 @@
 
 @push('js')
 <script>
+    @if (Auth::user()->status == 'accepted')       
+    
     var countdown = new Date("{{ Helper::getStartDate() }}").getTime();
     var x = setInterval(() => {
         var now = new Date().getTime();
@@ -125,6 +133,6 @@
         // If the count down is over, write some text
         if (distance < 0) { clearInterval(x); document.getElementById("countdown").style.display = "none" ;document.getElementById("start_btn").style.display = "block" }
     }, 1000);
-
+    @endif
 </script>
 @endpush
