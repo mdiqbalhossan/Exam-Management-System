@@ -3,7 +3,7 @@
 @section('title', 'Amuse Exam')
 
 @section('content')
-<section class="details-card">
+<section class="details-card my-5">
     <div class="container">
         <div class="row">
             @foreach ($batches as $batch)

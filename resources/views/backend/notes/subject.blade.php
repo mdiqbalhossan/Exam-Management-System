@@ -52,13 +52,14 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Student Group <span class="text-danger">(If No group leave blank.)</span></label>
+                                <label>Student Group <span class="text-danger">(If No group select
+                                        compolsory.)</span></label>
                                 <select class="form-control" name="group_id" id="group_id" required>
                                     <option value="">Select Your Group</option>
                                     @foreach ($groups as $group)
                                     <option value="{{ $group->id }}">{{ $group->name }}</option>
                                     @endforeach
-
+                                    <option value="0">Compolsory</option>
                                 </select>
                             </div>
                             <div class="form-group">

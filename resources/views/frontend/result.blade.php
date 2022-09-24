@@ -72,43 +72,41 @@
                 </div>
             </h3>
         </div>
-        <form action="{{ route('exam.result.store', $exam->id) }}" id="question_form" method="post">
-            @csrf
-            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-            <input type="hidden" name="exam_id" value="{{ $exam->id }}">
-            <div class="card-body">
-                @if ($question)
-                @php
-                $i = 1
-                @endphp
-                @foreach ($question as $val)
 
-                @php
-                $options = json_decode($val->options);
-                $label = ['ক','খ','গ','ঘ'];
-                @endphp
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="exam_id" value="{{ $exam->id }}">
+        <div class="card-body">
+            @if ($question)
+            @php
+            $i = 1
+            @endphp
+            @foreach ($question as $val)
 
-                <div class="question d-flex">
-                    {{ $i++ }}. {!! $val['question'] !!}
-                </div>
-                @foreach ($options as $key=>$option)
-                <label for="">
-                    <input type="radio" value="{{ $key+1 }}" name="{{ $val->id }}">
-                    <strong>{{ $label[$key] }}</strong>
-                    {!! $option !!}
-                </label><br>
-                @endforeach
-                @endforeach
-                @else
-                <h1 class="text-danger text-center">You have no question.</h1>
-                @endif
+            @php
+            $options = json_decode($val->options);
+            $label = ['ক','খ','গ','ঘ'];
+            @endphp
+
+            <div class="question d-flex">
+                {{ $i++ }}. {!! $val['question'] !!}
             </div>
-            <div class="card-footer border-top border-info">
-                <a href="{{ route('dashboard') }}" class="btn btn-danger">Cancel</a>
-                <input type="submit" value="Finish Exam" class="btn btn-info float-right" id="question_submit_btn">
-                <!-- <a href="exam.php" class="btn btn-info float-right">Finish Exam</a> -->
-            </div>
-        </form>
+            @foreach ($options as $key=>$option)
+            <label for="">
+                <input type="radio" value="{{ $key+1 }}" name="{{ $val->id }}">
+                <strong>{{ $label[$key] }}</strong>
+                {!! $option !!}
+            </label><br>
+            @endforeach
+            @endforeach
+            @else
+            <h1 class="text-danger text-center">You have no question.</h1>
+            @endif
+        </div>
+        <div class="card-footer border-top border-info">
+            <a href="{{ route('dashboard') }}" class="btn btn-danger">Cancel</a>
+            <input type="submit" value="Finish Exam" class="btn btn-info float-right" id="question_submit_btn">
+            <!-- <a href="exam.php" class="btn btn-info float-right">Finish Exam</a> -->
+        </div>
     </div>
 </div>
 @endsection

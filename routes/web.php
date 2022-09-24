@@ -16,6 +16,7 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\DetailsController;
 use App\Http\Controllers\User\ExamController as UserExamController;
+use App\Http\Controllers\User\NoteController as UserNoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,10 @@ use App\Http\Controllers\User\ExamController as UserExamController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/details/{id}', [DetailsController::class, 'index'])->name('details');
+Route::get('/note',[UserNoteController::class, 'class'])->name('user.note');
+Route::get('/note/{class_slug}',[UserNoteController::class, 'group'])->name('user.group');
+Route::get('/note/{class_slug}/{group_slug}',[UserNoteController::class, 'subject'])->name('user.subject');
+Route::get('/note/{class_slug}/{group_slug}/{subject_slug}',[UserNoteController::class, 'note'])->name('user.note.download');
 
 
 Auth::routes([

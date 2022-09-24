@@ -12,46 +12,44 @@
     <!-- font awesome -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
+    <style>
+        .nav-link {
+            display: inline-block;
+        }
+    </style>
     @stack('css')
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a href="{{ route('home') }}" class="navbar-brand logo">
-            <img src="assets/img/logo.png" alt="" width="48px" />
+            <img src="{{ asset('frontend/img/exam.gif') }}" alt="" width="48px" />
             <span class="">Amuse Exam</span>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Collection of nav links, forms, and other content for toggling -->
-        <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
-            <div class="navbar-nav">
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <div class="navbar-nav mr-auto">
                 <a href="{{ route('home') }}" class="nav-item nav-link">Home</a>
                 <a href="#" class="nav-item nav-link">About</a>
-
                 <a href="#" class="nav-item nav-link">Contact</a>
+                <a href="{{ route('user.note') }}" class="nav-item nav-link text-danger">Note <img
+                        src="{{ asset('frontend/img/favorite.gif') }}" alt="" width="28px"></a>
             </div>
-            <form class="navbar-form form-inline search-form">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search..." />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </form>
             <div class="navbar-nav ml-auto">
                 @auth
-                <a href="{{ route('dashboard') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
-                    Dashboard</a>
-                <a href="{{ route('user.logout') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
-                    Logout</a>
+                <div class="auth_btn">
+                    <a href="{{ route('dashboard') }}" class="nav-item nav-link nav-btn"><i class="fa fa-user-o"></i>
+                        Dashboard</a>
+                    <a href="{{ route('user.logout') }}" class="nav-item nav-link nav-btn f-right">
+                        Logout</a>
+                </div>
                 @else
                 <div class="nav-item dropdown login-dropdown">
-                    <a href="#" data-toggle="dropdown" class="nav-item nav-link login-btn dropdown-toggle"><i
-                            class="fa fa-user-o"></i>
+                    <a href="#" data-toggle="dropdown" class="nav-item nav-link login-btn dropdown-toggle"
+                        style="display: inline-block;"><i class="fa fa-user-o"></i>
                         Login</a>
                     <div class="dropdown-menu">
                         <form class="form-inline login-form" action="{{ route('user.login.post') }}" method="post">
@@ -73,6 +71,7 @@
             </div>
         </div>
     </nav>
+    {{-- @include('partials.navbar') --}}
     @yield('content')
     <footer>
         <p>
