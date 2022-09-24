@@ -88,7 +88,7 @@
                         <label>Select Batch</label>
                         <select class="form-control" name="batch_id" id="batch_id" required>
                             @foreach ($batch as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->group }})</option>
                             @endforeach
                         </select>
                     </div>

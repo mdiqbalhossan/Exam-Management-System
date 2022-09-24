@@ -32,7 +32,10 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link">Dashboard</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('home') }}" class="nav-link" target="_blank"> View Website</a>
                 </li>
             </ul>
 
@@ -84,10 +87,11 @@
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+                Developed By <a href="https://mdiqbal.xyz">Md Iqbal Hossen</a>
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://amuseexam.com">Amuseexam.com</a>.</strong> All
+            rights
             reserved.
         </footer>
     </div>

@@ -47,12 +47,34 @@ class QuestionController extends Controller
 
     }
 
-    // public function destroy($id)
-    // {
-    //     $question = Question::findOrFail($id);
-    //     $question->delete();
+    public function edit($id){
+        $question = Question::find($id);
+        $option = json_decode($question->options, true);
+        return view('backend.question.edit',compact('question','option'));
+    }
 
-    //    return response()->json(['success' => 'Member has been deleted successfully']);
-    // }
+    public function update(Request $request, $id){
+        $request->validate([
+            'question' => 'required',
+        ]);
+        $options = json_encode($request->options);
+        $question = Question::find($id);
+        $question->question = $request->question;
+        $question->options = $options;
+        $question->correct_ans = $request->correct_answer;
+        $question->answer = $request->answer;
+        $question->exam_id = Session::get('exam_id');
+        $question->save();
+
+        return redirect()->route('question.index',Session::get('exam_id'))->with('success','Question Updated Successfully');
+    }
+
+    public function destroy($id)
+    {
+        $question = Question::findOrFail($id);
+        $question->delete();
+
+       return response()->json(['success' => 'Question has been deleted successfully']);
+    }
 
 }

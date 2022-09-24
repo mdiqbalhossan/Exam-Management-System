@@ -4,8 +4,10 @@ namespace App\Helpers;
 
 use App\Models\Answer;
 use App\Models\Exam;
+use App\Models\ExamBatch;
 use App\Models\Question;
 use App\Models\Result;
+use App\Models\Student;
 use Carbon\Carbon;
 
 class Helper 
@@ -81,6 +83,22 @@ class Helper
             'status' => $status
         ]);
 
+    }
+
+    public static function totalProfit()
+    {
+        $total_profit = 0;
+        $student = Student::where('status','accepted')->get('batch_id')->groupBy('batch_id');
+        foreach($student as $val){
+            $count = $val->count();
+            $batch_id = $val[0]->batch_id;
+            $exam_batch = ExamBatch::where('id',$batch_id)->first();
+            $exam_fees = $exam_batch->exam_fees;
+            $total = ($exam_fees*$count);
+            $total_profit += $total;
+        }
+        
+        return $total_profit;
     }
 
     

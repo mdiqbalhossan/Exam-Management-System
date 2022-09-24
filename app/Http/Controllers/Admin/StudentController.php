@@ -50,14 +50,14 @@ class StudentController extends Controller
                                     <td>'.$student->clg_name.'</td>
                                     <td>'.$student->phone.'</td>
                                     <td>'.$student->payment_number.'</td>
-                                    <td>'.$student->batch->name.'</td>
+                                    <td>'.$student->batch->name.'('.$student->batch->group.')</td>
                                     <td>';
                                     if($student->status == 'accepted'){
             $output .= ucfirst($student->status);
-            $output .= '<a href="#" class="text-danger ml-2 cancelled" id="'.$student->id.'"><i class="fa fa-times-circle"></i></a>';
+            $output .= '<a href="#" title="Cancelled" class="text-danger ml-2 cancelled" id="'.$student->id.'"><i class="fa fa-times-circle"></i></a>';
         }else if($student->status == 'pending'){
             $output .= ucfirst($student->status);
-            $output .= '<a href="#" class="text-success ml-2 accepted" id="'.$student->id.'"><i class="fa fa-check-circle"></i></a>';
+            $output .= '<a href="#" title="Accepted" class="text-success ml-2 accepted" id="'.$student->id.'"><i class="fa fa-check-circle"></i></a>';
         }else{
             $output .= "<span class='badge badge-danger'>".ucfirst($student->status)."</span>";
         }

@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\ExamBatchController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\Note\NoteController;
 use App\Http\Controllers\Admin\Note\StudentClassController;
 use App\Http\Controllers\Admin\Note\StudentGroupController;
+use App\Http\Controllers\Admin\Note\SubjectController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\User\AuthController;
@@ -72,6 +74,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/question/exam/{id}',[QuestionController::class, 'index'])->name('question.index');
     Route::get('/question/create',[QuestionController::class, 'create'])->name('question.create');
     Route::post('/question/store',[QuestionController::class, 'store'])->name('question.store');
+    Route::get('/question/edit/{id}',[QuestionController::class, 'edit'])->name('question.edit');
+    Route::post('/question/update/{id}',[QuestionController::class, 'update'])->name('question.update');
+    Route::get('/question/destroy/{id}',[QuestionController::class, 'destroy']);
 
     // Student Note Route
     Route::prefix('notes')->group(function(){
@@ -79,5 +84,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/fetch-class', [StudentClassController::class, 'fetchClass'])->name('admin.class.fetch');
         Route::resource('group',StudentGroupController::class);
         Route::get('/fetch-group', [StudentGroupController::class, 'fetchGroup'])->name('admin.group.fetch');
+        Route::resource('/subject',SubjectController::class);
+        Route::get('/fetch-subject', [SubjectController::class, 'fetchSubject'])->name('admin.subject.fetch');
+        Route::resource('/note',NoteController::class);
+        Route::get('/fetch-note', [NoteController::class, 'fetchNote'])->name('admin.note.fetch');
     });
 });
